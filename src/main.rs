@@ -19,10 +19,10 @@ struct Screen {
 }
 
 fn main() {
-    let lo: Text   = compose_pixels(compose_line("hola cet dos".to_string()));
-    let ltw: Text   = compose_pixels(compose_line("soy el timbre".to_string()));
-    let lth: Text = compose_pixels(compose_line("rust mejor que pythn".to_string()));
-    let lf: Text  = compose_pixels(compose_line("zig mejor que rust".to_string()));
+    let lo: Text  ? compose_pixels(compose_line("hello world".to_string()));
+    let ltw: Text = compose_pixels(compose_line("small LCD screen".to_string()));
+    let lth: Text = compose_pixels(compose_line("arduino".to_string()));
+    let lf: Text  = compose_pixels(compose_line("electronics".to_string()));
 
     draw_screen(compose_screen(lo, ltw, lth, lf));
 }
