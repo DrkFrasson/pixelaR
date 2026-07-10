@@ -19,14 +19,12 @@ struct Screen {
 }
 
 fn main() {
-    let line_one: Text = compose_line("hola cet dos".to_string());
-    let line_two: Text = compose_line("soy el timbre".to_string());
-    let line_three: Text = compose_line("rust".to_string());
-    let line_four: Text = compose_line("linux".to_string());
+    let lo: Text   = compose_pixels(compose_line("hola cet dos".to_string()));
+    let ltw: Text   = compose_pixels(compose_line("soy el timbre".to_string()));
+    let lth: Text = compose_pixels(compose_line("rust mejor que pythn".to_string()));
+    let lf: Text  = compose_pixels(compose_line("zig mejor que rust".to_string()));
 
-    let screen: Screen = compose_screen(line_one, line_two, line_three, line_four);
-
-    draw_screen(screen);
+    draw_screen(compose_screen(lo, ltw, lth, lf));
 }
 
 fn compose_screen(l1: Text, l2: Text, l3: Text, l4: Text) -> Screen
@@ -39,7 +37,124 @@ fn compose_screen(l1: Text, l2: Text, l3: Text, l4: Text) -> Screen
     }
 }
 
-fn compose_pixels
+fn compose_pixels(line: Text) -> Text
+{
+    let mut buff: Text = Default::default();
+
+    for i in line.l1.chars() {
+        buff.l1 += match i {
+            '0' => {
+                "\x1b[48;5;25m  "
+            },
+            '1' => {
+                "\x1b[48;5;4m  "
+            },
+            ' ' => {
+                "\x1b[48;5;17m  "
+            },
+            _ => todo!(),
+        }
+    }
+    for i in line.l2.chars() {
+        buff.l2 += match i {
+            '0' => {
+                "\x1b[48;5;25m  "
+            },
+            '1' => {
+                "\x1b[48;5;4m  "
+            },
+            ' ' => {
+                "\x1b[48;5;17m  "
+            },
+            _ => todo!(),
+        }
+    }
+    for i in line.l3.chars() {
+        buff.l3 += match i {
+            '0' => {
+                "\x1b[48;5;25m  "
+            },
+            '1' => {
+                "\x1b[48;5;4m  "
+            },
+            ' ' => {
+                "\x1b[48;5;17m  "
+            },
+            _ => todo!(),
+        }
+    }
+    for i in line.l4.chars() {
+        buff.l4 += match i {
+            '0' => {
+                "\x1b[48;5;25m  "
+            },
+            '1' => {
+                "\x1b[48;5;4m  "
+            },
+            ' ' => {
+                "\x1b[48;5;17m  "
+            },
+            _ => todo!(),
+        }
+    }
+    for i in line.l5.chars() {
+        buff.l5 += match i {
+            '0' => {
+                "\x1b[48;5;25m  "
+            },
+            '1' => {
+                "\x1b[48;5;4m  "
+            },
+            ' ' => {
+                "\x1b[48;5;17m  "
+            },
+            _ => todo!(),
+        }
+    }
+    for i in line.l6.chars() {
+        buff.l6 += match i {
+            '0' => {
+                "\x1b[48;5;25m  "
+            },
+            '1' => {
+                "\x1b[48;5;4m  "
+            },
+            ' ' => {
+                "\x1b[48;5;17m  "
+            },
+            _ => todo!(),
+        }
+    }
+    for i in line.l7.chars() {
+        buff.l7 += match i {
+            '0' => {
+                "\x1b[48;5;25m  "
+            },
+            '1' => {
+                "\x1b[48;5;4m  "
+            },
+            ' ' => {
+                "\x1b[48;5;17m  "
+            },
+            _ => todo!(),
+        }
+    }
+    for i in line.l8.chars() {
+        buff.l8 += match i {
+            '0' => {
+                "\x1b[48;5;25m  "
+            },
+            '1' => {
+                "\x1b[48;5;4m  "
+            },
+            ' ' => {
+                "\x1b[48;5;17m  "
+            },
+            _ => todo!(),
+        }
+    }
+    return buff;
+}
 
 
 fn compose_line(mut message: String) -> Text
@@ -126,20 +241,20 @@ fn compose_line(mut message: String) -> Text
             l8: "11110".to_string(),
         },                         
         Text{ // "h"               
-            l1: "00000".to_string(),
+            l1: "10000".to_string(),
             l2: "10000".to_string(),
-            l3: "10000".to_string(),
-            l4: "11110".to_string(),
+            l3: "11110".to_string(),
+            l4: "10001".to_string(),
             l5: "10001".to_string(),
             l6: "10001".to_string(),
             l7: "10001".to_string(),
             l8: "00000".to_string(),
         },                         
         Text{ // "i"               
-            l1: "00000".to_string(),
-            l2: "00100".to_string(),
-            l3: "00000".to_string(),
-            l4: "11100".to_string(),
+            l1: "00100".to_string(),
+            l2: "00000".to_string(),
+            l3: "11100".to_string(),
+            l4: "00100".to_string(),
             l5: "00100".to_string(),
             l6: "00100".to_string(),
             l7: "11111".to_string(),
@@ -166,8 +281,8 @@ fn compose_line(mut message: String) -> Text
             l8: "00000".to_string(),
         },                         
         Text{ // "l"               
-            l1: "00000".to_string(),
-            l2: "11000".to_string(),
+            l1: "11000".to_string(),
+            l2: "01000".to_string(),
             l3: "01000".to_string(),
             l4: "01000".to_string(),
             l5: "01000".to_string(),
@@ -178,8 +293,8 @@ fn compose_line(mut message: String) -> Text
         Text{ // "m"
             l1: "00000".to_string(),
             l2: "00000".to_string(),
-            l3: "10000".to_string(),
-            l4: "11111".to_string(),
+            l3: "11110".to_string(),
+            l4: "10101".to_string(),
             l5: "10101".to_string(),
             l6: "10101".to_string(),
             l7: "10101".to_string(),
@@ -208,8 +323,8 @@ fn compose_line(mut message: String) -> Text
         Text{ // "o"
             l1: "00000".to_string(),
             l2: "00000".to_string(),
-            l3: "00000".to_string(),
-            l4: "01110".to_string(),
+            l3: "01110".to_string(),
+            l4: "10001".to_string(),
             l5: "10001".to_string(),
             l6: "10001".to_string(),
             l7: "01110".to_string(),
@@ -242,7 +357,7 @@ fn compose_line(mut message: String) -> Text
             l4: "10001".to_string(),
             l5: "10000".to_string(),
             l6: "10000".to_string(),
-            l7: "00000".to_string(),
+            l7: "10000".to_string(),
             l8: "00000".to_string(),
         },                         
         Text{ // "s"               
@@ -256,7 +371,7 @@ fn compose_line(mut message: String) -> Text
             l8: "00000".to_string(),
         },                         
         Text{ // "t"               
-            l1: "00000".to_string(),
+            l1: "00100".to_string(),
             l2: "00100".to_string(),
             l3: "11111".to_string(),
             l4: "00100".to_string(),
@@ -329,18 +444,16 @@ fn compose_line(mut message: String) -> Text
             l1: "00000".to_string(),
             l2: "00000".to_string(),
             l3: "00000".to_string(),
-            l4: "00100".to_string(),
-            l5: "00100".to_string(),
+            l4: "00000".to_string(),
+            l5: "00000".to_string(),
             l6: "00000".to_string(),
             l7: "00000".to_string(),
             l8: "00000".to_string(),
         },
     };
 
-    println!("{}", abc.len());
     let mut blocks: Vec<u8> = vec![];
     for char in message.chars() {
-        println!("[{char}]");
         blocks.push( match char {
             'a' => 0 ,
             'b' => 1 ,
@@ -377,7 +490,6 @@ fn compose_line(mut message: String) -> Text
     let mut message_composed: Text = Default::default();
 
     for c in blocks {
-        println!("{c}");
         message_composed.l1 += &(" ".to_owned() + &abc[c as usize].l1.clone());
         message_composed.l2 += &(" ".to_owned() + &abc[c as usize].l2.clone());
         message_composed.l3 += &(" ".to_owned() + &abc[c as usize].l3.clone());
@@ -387,13 +499,22 @@ fn compose_line(mut message: String) -> Text
         message_composed.l7 += &(" ".to_owned() + &abc[c as usize].l7.clone());
         message_composed.l8 += &(" ".to_owned() + &abc[c as usize].l8.clone());
     }
+    message_composed.l1 += " ";
+    message_composed.l2 += " ";
+    message_composed.l3 += " ";
+    message_composed.l4 += " ";
+    message_composed.l5 += " ";
+    message_composed.l6 += " ";
+    message_composed.l7 += " ";
+    message_composed.l8 += " ";
+
     return message_composed;
 }
 
 fn empty() -> String {
     let mut responce: String = Default::default();
-    for _ in 0..=240 {
-        responce += " ";
+    for _ in 0..=120 {
+        responce += "  ";
     }
     return responce;
 }
@@ -402,13 +523,13 @@ fn draw_screen(message_composed: Screen) // 36 * 120 pixels (4 * 20 characters)
 {
     let empty: String = empty();
     print!("\n");
-    println!("\x1b[48;5;248m                                                                                                                                        \x1b[0m");
-    println!("\x1b[48;5;248m                                                                                                                                      \x1b[48;5;240m  \x1b[0m");
-    println!("\x1b[48;5;248m    \x1b[48;5;245m                                                                                                                                \x1b[48;5;240m    \x1b[0m");
-    println!("\x1b[48;5;248m    \x1b[48;5;245m                                                8 * 49 Screen                                                                   \x1b[48;5;240m    \x1b[0m");
-    println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m                                                                                                                        \x1b[48;5;245m    \x1b[48;5;248m\x1b[48;5;240m    \x1b[0m");
+    println!("\x1b[48;5;248m                    {}\x1b[0m", empty);
+    println!("\x1b[48;5;248m                  {}\x1b[48;5;240m  \x1b[0m", empty);
+    println!("\x1b[48;5;248m    \x1b[48;5;245m            {}\x1b[48;5;240m    \x1b[0m", empty);
+    println!("\x1b[48;5;248m    \x1b[48;5;245m            {}\x1b[48;5;240m    \x1b[0m", empty);
+    println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m    {}\x1b[48;5;245m    \x1b[48;5;248m\x1b[48;5;240m    \x1b[0m", empty);
 
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
 
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l1);
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l2);
@@ -419,7 +540,7 @@ fn draw_screen(message_composed: Screen) // 36 * 120 pixels (4 * 20 characters)
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l7);
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l8);
 
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
 
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l1);
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l2);
@@ -430,7 +551,7 @@ fn draw_screen(message_composed: Screen) // 36 * 120 pixels (4 * 20 characters)
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l7);
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l8);
 
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
 
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l1);
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l2);
@@ -441,7 +562,7 @@ fn draw_screen(message_composed: Screen) // 36 * 120 pixels (4 * 20 characters)
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l7);
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l8);
 
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
 
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l1);
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l2);
@@ -452,12 +573,12 @@ fn draw_screen(message_composed: Screen) // 36 * 120 pixels (4 * 20 characters)
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l7);
             println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l8);
 
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
-    println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m                                                                                                                        \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m");
-    println!("\x1b[48;5;248m    \x1b[48;5;245m                                                                                                                                \x1b[48;5;240m    \x1b[0m");
-    println!("\x1b[48;5;248m    \x1b[48;5;245m                                                                                                                                \x1b[48;5;240m    \x1b[0m");
-    println!("\x1b[48;5;248m  \x1b[48;5;240m                                                                                                                                      \x1b[0m");
-    println!("\x1b[48;5;240m                                                                                                                                        \x1b[0m");
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+    println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m{}    \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+    println!("\x1b[48;5;248m    \x1b[48;5;245m  {}          \x1b[48;5;240m    \x1b[0m", empty);
+    println!("\x1b[48;5;248m    \x1b[48;5;245m  {}          \x1b[48;5;240m    \x1b[0m", empty);
+    println!("\x1b[48;5;248m  \x1b[48;5;240m    {}              \x1b[0m", empty);
+    println!("\x1b[48;5;240m                    {}\x1b[0m", empty);
 }
 
 /*
