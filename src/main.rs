@@ -23,7 +23,7 @@ fn main() {
     let lo: Text  = compose_pixels(compose_line("abcdefghijklmnñopqrs".to_string()));
     let ltw: Text = compose_pixels(compose_line("tuvwxyz.,ABCDEFGHIJK".to_string()));
     let lth: Text = compose_pixels(compose_line("LMNÑOPQRSTUVWXYZ<>ó".to_string()));
-    let lf: Text  = compose_pixels(compose_line("Hello, World".to_string()));
+    let lf: Text  = compose_pixels(compose_line("0123456789".to_string()));
 
     draw_screen(compose_screen(lo, ltw, lth, lf));
 }
@@ -715,6 +715,107 @@ fn compose_line(mut message: String) -> Text
         l5: "10001".to_string(),
         l6: "10001".to_string(),
         l7: "01110".to_string(),
+        l8: "00000".to_string(),
+    });
+
+    abc.insert( '0', Text{
+        l1: "00000".to_string(),
+        l2: "01110".to_string(),
+        l3: "10001".to_string(),
+        l4: "10101".to_string(),
+        l5: "10101".to_string(),
+        l6: "10001".to_string(),
+        l7: "01110".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '1', Text{
+        l1: "00000".to_string(),
+        l2: "00100".to_string(),
+        l3: "01100".to_string(),
+        l4: "00100".to_string(),
+        l5: "00100".to_string(),
+        l6: "00100".to_string(),
+        l7: "01110".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '2', Text{
+        l1: "00000".to_string(),
+        l2: "01110".to_string(),
+        l3: "10001".to_string(),
+        l4: "00010".to_string(),
+        l5: "00100".to_string(),
+        l6: "01000".to_string(),
+        l7: "11111".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '3', Text{
+        l1: "00000".to_string(),
+        l2: "11111".to_string(),
+        l3: "00001".to_string(),
+        l4: "00110".to_string(),
+        l5: "00001".to_string(),
+        l6: "10001".to_string(),
+        l7: "01110".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '4', Text{
+        l1: "00000".to_string(),
+        l2: "00100".to_string(),
+        l3: "01000".to_string(),
+        l4: "10010".to_string(),
+        l5: "11111".to_string(),
+        l6: "00010".to_string(),
+        l7: "00010".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '5', Text{
+        l1: "00000".to_string(),
+        l2: "11111".to_string(),
+        l3: "10000".to_string(),
+        l4: "11110".to_string(),
+        l5: "00001".to_string(),
+        l6: "10001".to_string(),
+        l7: "01110".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '6', Text{
+        l1: "00000".to_string(),
+        l2: "00010".to_string(),
+        l3: "00100".to_string(),
+        l4: "01000".to_string(),
+        l5: "10110".to_string(),
+        l6: "10001".to_string(),
+        l7: "01110".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '7', Text{
+        l1: "00000".to_string(),
+        l2: "11111".to_string(),
+        l3: "10001".to_string(),
+        l4: "00010".to_string(),
+        l5: "00010".to_string(),
+        l6: "00100".to_string(),
+        l7: "00100".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '8', Text{
+        l1: "00000".to_string(),
+        l2: "01110".to_string(),
+        l3: "01010".to_string(),
+        l4: "01110".to_string(),
+        l5: "10001".to_string(),
+        l6: "10001".to_string(),
+        l7: "01110".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '9', Text{
+        l1: "00000".to_string(),
+        l2: "01110".to_string(),
+        l3: "10001".to_string(),
+        l4: "01111".to_string(),
+        l5: "00010".to_string(),
+        l6: "00100".to_string(),
+        l7: "01000".to_string(),
         l8: "00000".to_string(),
     });
 
