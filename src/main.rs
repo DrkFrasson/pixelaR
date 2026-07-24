@@ -1,7 +1,11 @@
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+    thread,
+    time
+};
 
 #[derive(Default)]
-struct Text {
+pub struct Text {
     l1: String,
     l2: String,
     l3: String,
@@ -12,25 +16,61 @@ struct Text {
     l8: String,
 }
 
-struct Screen {
+pub struct Screen {
     l1: Text,
     l2: Text,
     l3: Text,
     l4: Text,
 }
 
-fn main() {
-    let lo: Text  = compose_pixels(compose_line("abcdefghijklmnñopqrs".to_string()));
-    let ltw: Text = compose_pixels(compose_line("tuvwxyz.,ABCDEFGHIJK".to_string()));
-    let lth: Text = compose_pixels(compose_line("LMNÑOPQRSTUVWXYZ<>ó".to_string()));
-    let lf: Text  = compose_pixels(compose_line("0123456789".to_string()));
+impl Screen {
+    fn new() -> Screen{
+        Screen{
+            l1: compose_pixels(compose_line(" ".to_string())),
+            l2: compose_pixels(compose_line(" ".to_string())),
+            l3: compose_pixels(compose_line(" ".to_string())),
+            l4: compose_pixels(compose_line(" ".to_string())),
+        }
+    }
 
-    draw_screen(compose_screen(lo, ltw, lth, lf));
+    fn push(self, message: Text) -> Screen{
+        Screen{
+            l1: self.l2,
+            l2: self.l3,
+            l3: self.l4,
+            l4: message,
+        }
+    }
 }
 
-fn compose_screen(l1: Text, l2: Text, l3: Text, l4: Text) -> Screen{ Screen{ l1, l2, l3, l4, }}
+fn main() {
+    let mut i: u16 = 10;
+    let mut screen: Screen = Screen::new();
+    let delay = time::Duration::from_millis(1000);
+    print!("\x1b[s\x1b[?47h");
+    print!("\x1b[2J");
+    loop{
+        if i == 0 {
+            screen = screen.push(compose_pixels(compose_line("BOOOOOOOOM!".to_string())));
+            print!("\x1b[H");
+            draw_screen(&screen);
+            thread::sleep(time::Duration::from_millis(2000));
+            print!("\x1b[?47l\x1b[u");
+            std::process::exit(0);
+        }else{
+            screen = screen.push(compose_pixels(compose_line(("autodestruction: ".to_owned() + &(i).to_string() as &str ).to_string())));
+            print!("\x1b[H");
+            thread::sleep(delay);
+            draw_screen(&screen);
+            i -= 1;
+        }
+    }
 
-fn compose_pixels(line: Text) -> Text
+}
+
+pub fn compose_screen(l1: Text, l2: Text, l3: Text, l4: Text) -> Screen{ Screen{ l1, l2, l3, l4, }}
+
+pub fn compose_pixels(line: Text) -> Text
 {
     let mut buff: Text = Default::default();
 
@@ -102,7 +142,7 @@ fn compose_pixels(line: Text) -> Text
 }
 
 
-fn compose_line(mut message: String) -> Text
+pub fn compose_line(mut message: String) -> Text
 {
     let mut line: Vec<char> = message.chars().collect();
     if line.len() != 20 {
@@ -342,7 +382,7 @@ fn compose_line(mut message: String) -> Text
         l2: "00000".to_string(),
         l3: "10001".to_string(),
         l4: "10001".to_string(),
-        l5: "10001".to_string(),
+        l5: "01010".to_string(),
         l6: "01010".to_string(),
         l7: "00100".to_string(),
         l8: "00000".to_string(),
@@ -687,6 +727,106 @@ fn compose_line(mut message: String) -> Text
         l7: "01000".to_string(),
         l8: "10000".to_string(),
     });
+    abc.insert( ':', Text{
+        l1: "00000".to_string(),
+        l2: "00000".to_string(),
+        l3: "01000".to_string(),
+        l4: "00000".to_string(),
+        l5: "00000".to_string(),
+        l6: "00000".to_string(),
+        l7: "01000".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( ';', Text{
+        l1: "00000".to_string(),
+        l2: "00000".to_string(),
+        l3: "01000".to_string(),
+        l4: "00000".to_string(),
+        l5: "00000".to_string(),
+        l6: "00000".to_string(),
+        l7: "01000".to_string(),
+        l8: "10000".to_string(),
+    });
+    abc.insert( '"', Text{
+        l1: "01010".to_string(),
+        l2: "01010".to_string(),
+        l3: "00000".to_string(),
+        l4: "00000".to_string(),
+        l5: "00000".to_string(),
+        l6: "00000".to_string(),
+        l7: "00000".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '(', Text{
+        l1: "00010".to_string(),
+        l2: "00100".to_string(),
+        l3: "01000".to_string(),
+        l4: "01000".to_string(),
+        l5: "01000".to_string(),
+        l6: "00100".to_string(),
+        l7: "00010".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( ')', Text{
+        l1: "01000".to_string(),
+        l2: "00100".to_string(),
+        l3: "00010".to_string(),
+        l4: "00010".to_string(),
+        l5: "00010".to_string(),
+        l6: "00100".to_string(),
+        l7: "01000".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '{', Text{
+        l1: "00011".to_string(),
+        l2: "00100".to_string(),
+        l3: "00010".to_string(),
+        l4: "01100".to_string(),
+        l5: "00010".to_string(),
+        l6: "00100".to_string(),
+        l7: "00011".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '}', Text{
+        l1: "11000".to_string(),
+        l2: "00100".to_string(),
+        l3: "01000".to_string(),
+        l4: "00110".to_string(),
+        l5: "01000".to_string(),
+        l6: "00100".to_string(),
+        l7: "11000".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '-', Text{
+        l1: "00000".to_string(),
+        l2: "00000".to_string(),
+        l3: "00000".to_string(),
+        l4: "00000".to_string(),
+        l5: "01110".to_string(),
+        l6: "00000".to_string(),
+        l7: "00000".to_string(),
+        l8: "00000".to_string(),
+    });
+    abc.insert( '_', Text{
+        l1: "00000".to_string(),
+        l2: "00000".to_string(),
+        l3: "00000".to_string(),
+        l4: "00000".to_string(),
+        l5: "00000".to_string(),
+        l6: "00000".to_string(),
+        l7: "00000".to_string(),
+        l8: "01110".to_string(),
+    });
+    abc.insert( '!', Text{
+        l1: "01000".to_string(),
+        l2: "01000".to_string(),
+        l3: "01000".to_string(),
+        l4: "01000".to_string(),
+        l5: "01000".to_string(),
+        l6: "01000".to_string(),
+        l7: "00000".to_string(),
+        l8: "01000".to_string(),
+    });
     abc.insert( '>', Text{
         l1: "00000".to_string(),
         l2: "00000".to_string(),
@@ -780,10 +920,10 @@ fn compose_line(mut message: String) -> Text
     });
     abc.insert( '6', Text{
         l1: "00000".to_string(),
-        l2: "00010".to_string(),
-        l3: "00100".to_string(),
-        l4: "01000".to_string(),
-        l5: "10110".to_string(),
+        l2: "00100".to_string(),
+        l3: "01000".to_string(),
+        l4: "10000".to_string(),
+        l5: "11110".to_string(),
         l6: "10001".to_string(),
         l7: "01110".to_string(),
         l8: "00000".to_string(),
@@ -812,17 +952,20 @@ fn compose_line(mut message: String) -> Text
         l1: "00000".to_string(),
         l2: "01110".to_string(),
         l3: "10001".to_string(),
-        l4: "01111".to_string(),
-        l5: "00010".to_string(),
-        l6: "00100".to_string(),
-        l7: "01000".to_string(),
+        l4: "10001".to_string(),
+        l5: "01111".to_string(),
+        l6: "00001".to_string(),
+        l7: "00001".to_string(),
         l8: "00000".to_string(),
     });
 
     let mut message_composed: Text = Default::default();
 
     for c in message.chars() {
-        let letter: &Text = abc.get(&c).expect("Not a printable character!");
+        let letter: &Text = match abc.get(&c) {
+            Some(c) => c,
+            _ => {println!("\x1b[1;3;31merror:\x1b[22;39m Not a printable character: {:?}", c); std::process::exit(1);},
+        };
         message_composed.l1 += &(" ".to_owned() + &letter.l1);
         message_composed.l2 += &(" ".to_owned() + &letter.l2);
         message_composed.l3 += &(" ".to_owned() + &letter.l3);
@@ -852,7 +995,7 @@ fn empty() -> String {
     return responce;
 }
 
-fn draw_screen(message_composed: Screen) // 36 * 120 pixels (4 * 20 characters)
+pub fn draw_screen(message_composed: &Screen) // 36 * 120 pixels (4 * 20 characters)
 {
     let empty: String = empty();
     print!("\n");
@@ -913,9 +1056,3 @@ fn draw_screen(message_composed: Screen) // 36 * 120 pixels (4 * 20 characters)
     println!("\x1b[48;5;248m  \x1b[48;5;240m    {}              \x1b[0m", empty);
     println!("\x1b[48;5;240m                    {}\x1b[0m", empty);
 }
-
-/*
-fn sleeping()
-{
-    // Like in suspention mode, without ringing, but buzzing.
-}*/
