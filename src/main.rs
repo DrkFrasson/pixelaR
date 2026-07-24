@@ -5,7 +5,7 @@ use std::{
 };
 
 #[derive(Default)]
-pub struct Text {
+pub struct Text{
     l1: String,
     l2: String,
     l3: String,
@@ -16,14 +16,27 @@ pub struct Text {
     l8: String,
 }
 
-pub struct Screen {
+impl Text{
+    fn draw_line(&self) {
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", self.l1);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", self.l2);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", self.l3);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", self.l4);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", self.l5);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", self.l6);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", self.l7);
+            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", self.l8);
+    }
+}
+
+pub struct Screen{
     l1: Text,
     l2: Text,
     l3: Text,
     l4: Text,
 }
 
-impl Screen {
+impl Screen{
     fn new() -> Screen{
         Screen{
             l1: compose_pixels(compose_line(" ".to_string())),
@@ -41,10 +54,43 @@ impl Screen {
             l4: message,
         }
     }
+
+    fn draw(&self) {
+        let empty: String = empty();
+        println!("\x1b[48;5;248m                    {}\x1b[0m", empty);
+        println!("\x1b[48;5;248m                  {}\x1b[48;5;240m  \x1b[0m", empty);
+        println!("\x1b[48;5;248m    \x1b[48;5;245m            {}\x1b[48;5;240m    \x1b[0m", empty);
+        println!("\x1b[48;5;248m    \x1b[48;5;245m            {}\x1b[48;5;240m    \x1b[0m", empty);
+        println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m    {}\x1b[48;5;245m    \x1b[48;5;248m\x1b[48;5;240m    \x1b[0m", empty);
+        println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+        self.l1.draw_line();
+        println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+        self.l2.draw_line();
+        println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+        self.l3.draw_line();
+        println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+        self.l4.draw_line();
+        println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+        println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m{}    \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
+        println!("\x1b[48;5;248m    \x1b[48;5;245m  {}          \x1b[48;5;240m    \x1b[0m", empty);
+        println!("\x1b[48;5;248m    \x1b[48;5;245m  {}          \x1b[48;5;240m    \x1b[0m", empty);
+        println!("\x1b[48;5;248m  \x1b[48;5;240m    {}              \x1b[0m", empty);
+        println!("\x1b[48;5;240m                    {}\x1b[0m", empty);
+    }
+
+    fn put(&mut self, message: String, line: u8) {
+        match line {
+            1 => self.l1 = compose_pixels(compose_line(message)),
+            2 => self.l2 = compose_pixels(compose_line(message)),
+            3 => self.l3 = compose_pixels(compose_line(message)),
+            4 => self.l4 = compose_pixels(compose_line(message)),
+            _ => panic!("Unvalid Line!"),
+        }
+    }
 }
 
 fn main() {
-    let mut i: u16 = 10;
+    let mut i: u16 = 50;
     let mut screen: Screen = Screen::new();
     let delay = time::Duration::from_millis(1000);
     print!("\x1b[s\x1b[?47h");
@@ -52,16 +98,18 @@ fn main() {
     loop{
         if i == 0 {
             screen = screen.push(compose_pixels(compose_line("BOOOOOOOOM!".to_string())));
+            screen.put("Explotamos al ".to_string(), 1);
+            screen.put("carajo!".to_string(), 2);
             print!("\x1b[H");
-            draw_screen(&screen);
-            thread::sleep(time::Duration::from_millis(2000));
+            screen.draw();
+            thread::sleep(time::Duration::from_millis(20000));
             print!("\x1b[?47l\x1b[u");
             std::process::exit(0);
         }else{
             screen = screen.push(compose_pixels(compose_line(("autodestruction: ".to_owned() + &(i).to_string() as &str ).to_string())));
             print!("\x1b[H");
             thread::sleep(delay);
-            draw_screen(&screen);
+            screen.draw();
             i -= 1;
         }
     }
@@ -993,66 +1041,4 @@ fn empty() -> String {
         responce += "  ";
     }
     return responce;
-}
-
-pub fn draw_screen(message_composed: &Screen) // 36 * 120 pixels (4 * 20 characters)
-{
-    let empty: String = empty();
-    print!("\n");
-    println!("\x1b[48;5;248m                    {}\x1b[0m", empty);
-    println!("\x1b[48;5;248m                  {}\x1b[48;5;240m  \x1b[0m", empty);
-    println!("\x1b[48;5;248m    \x1b[48;5;245m            {}\x1b[48;5;240m    \x1b[0m", empty);
-    println!("\x1b[48;5;248m    \x1b[48;5;245m            {}\x1b[48;5;240m    \x1b[0m", empty);
-    println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m    {}\x1b[48;5;245m    \x1b[48;5;248m\x1b[48;5;240m    \x1b[0m", empty);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l1);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l2);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l3);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l4);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l5);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l6);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l7);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l1.l8);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l1);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l2);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l3);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l4);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l5);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l6);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l7);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l2.l8);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l1);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l2);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l3);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l4);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l5);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l6);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l7);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l3.l8);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l1);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l2);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l3);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l4);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l5);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l6);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l7);
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  {}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", message_composed.l4.l8);
-
-            println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m  \x1b[48;5;17m{}\x1b[48;5;239m  \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
-    println!("\x1b[48;5;248m    \x1b[48;5;245m    \x1b[48;5;239m{}    \x1b[48;5;245m    \x1b[48;5;240m    \x1b[0m", empty);
-    println!("\x1b[48;5;248m    \x1b[48;5;245m  {}          \x1b[48;5;240m    \x1b[0m", empty);
-    println!("\x1b[48;5;248m    \x1b[48;5;245m  {}          \x1b[48;5;240m    \x1b[0m", empty);
-    println!("\x1b[48;5;248m  \x1b[48;5;240m    {}              \x1b[0m", empty);
-    println!("\x1b[48;5;240m                    {}\x1b[0m", empty);
 }
