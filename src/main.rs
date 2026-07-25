@@ -87,106 +87,223 @@ impl Screen{
             _ => panic!("Unvalid Line!"),
         }
     }
+
+    fn from(line1: String, line2: String, line3: String, line4: String) -> Screen {
+        Screen{
+            l1: compose_pixels(compose_line(line1)),
+            l2: compose_pixels(compose_line(line2)),
+            l3: compose_pixels(compose_line(line3)),
+            l4: compose_pixels(compose_line(line4)),
+        }
+    }
 }
 
 fn main() {
-    let mut i: u16 = 50;
-    let mut screen: Screen = Screen::new();
-    let delay = time::Duration::from_millis(1000);
-    print!("\x1b[s\x1b[?47h");
-    print!("\x1b[2J");
+    let mut i: u16 = 50000;
+    print!("\x1b[s\x1b[?47h\x1b[2J");
+    let now = time::SystemTime::now();
+    let mut screen: Screen =
+        Screen::from(
+            "Hello, World".to_string(),
+            "LCD screen".to_string(),
+            "--> Rust".to_string(),
+            "".to_string());
+    print!("\x1b[H");
+    screen.draw();
+//    let mut screen_average: Vec<time::Duration> = vec![];
     loop{
-        if i == 0 {
-            screen = screen.push(compose_pixels(compose_line("BOOOOOOOOM!".to_string())));
-            screen.put("Explotamos al ".to_string(), 1);
-            screen.put("carajo!".to_string(), 2);
-            print!("\x1b[H");
-            screen.draw();
-            thread::sleep(time::Duration::from_millis(20000));
-            print!("\x1b[?47l\x1b[u");
-            std::process::exit(0);
-        }else{
-            screen = screen.push(compose_pixels(compose_line(("autodestruction: ".to_owned() + &(i).to_string() as &str ).to_string())));
-            print!("\x1b[H");
-            thread::sleep(delay);
-            screen.draw();
-            i -= 1;
-        }
+        if i == 0 {break;}
+//        let now_draw = time::SystemTime::now();
+        screen = screen.push(compose_pixels(compose_line(("screen number: ".to_owned() + &(i).to_string() as &str ).to_string())));
+        print!("\x1b[H");
+        screen.draw();
+/*        match now_draw.elapsed() {
+            Ok(t) => screen_average.push(t),
+            Err(e) => println!("Error: {e}"),
+        }*/
+        i -= 1;
     }
-
+    print!("\x1b[?47l\x1b[u");
+    match now.elapsed() {
+        Ok(t) => println!("50000 screens in {t:#?}"),
+        Err(e) => println!("Error: {e}"),
+    }
+    /*
+    let sum: time::Duration = ;
+    for s in screen_average {
+        sum += s;
+    }
+    sum /= screen_average.len();
+    println!("average: {sum:#?}");
+*/
 }
 
 pub fn compose_screen(l1: Text, l2: Text, l3: Text, l4: Text) -> Screen{ Screen{ l1, l2, l3, l4, }}
 
 pub fn compose_pixels(line: Text) -> Text
 {
-    let mut buff: Text = Default::default();
+    let mut response: Text = Default::default();
 
-    for i in line.l1.chars() {
-        buff.l1 += match i {
+    let mut buff: char = Default::default();
+    for c in line.l1.chars() {
+        if buff == c {
+            response.l1 += match c {
+                '0' => "┼┼",
+                '1' => "▯▯",
+                ' ' => "  ",
+                _ => todo!(),
+            };
+            continue;
+        }
+        response.l1 += match c {
             '0' => "\x1b[38;5;25m\x1b[48;5;21m┼┼",
             '1' => "\x1b[39m\x1b[48;5;32m▯▯",
             ' ' => "\x1b[48;5;17m  ",
             _ => todo!(),
-        }
+        };
+        buff = c;
     }
-    for i in line.l2.chars() {
-        buff.l2 += match i {
+    buff = Default::default();
+
+    for c in line.l2.chars() {
+        if buff == c {
+            response.l2 += match c {
+                '0' => "┼┼",
+                '1' => "▯▯",
+                ' ' => "  ",
+                _ => todo!(),
+            };
+            continue;
+        }
+        response.l2 += match c {
             '0' => "\x1b[38;5;25m\x1b[48;5;21m┼┼",
             '1' => "\x1b[39m\x1b[48;5;32m▯▯",
             ' ' => "\x1b[48;5;17m  ",
             _ => todo!(),
-        }
+        };
+        buff = c;
     }
-    for i in line.l3.chars() {
-        buff.l3 += match i {
+    buff = Default::default();
+
+    for c in line.l3.chars() {
+        if buff == c {
+            response.l3 += match c {
+                '0' => "┼┼",
+                '1' => "▯▯",
+                ' ' => "  ",
+                _ => todo!(),
+            };
+            continue;
+        }
+        response.l3 += match c {
             '0' => "\x1b[38;5;25m\x1b[48;5;21m┼┼",
             '1' => "\x1b[39m\x1b[48;5;32m▯▯",
             ' ' => "\x1b[48;5;17m  ",
             _ => todo!(),
-        }
+        };
+        buff = c;
     }
-    for i in line.l4.chars() {
-        buff.l4 += match i {
+    buff = Default::default();
+
+    for c in line.l4.chars() {
+        if buff == c {
+            response.l4 += match c {
+                '0' => "┼┼",
+                '1' => "▯▯",
+                ' ' => "  ",
+                _ => todo!(),
+            };
+            continue;
+        }
+        response.l4 += match c {
             '0' => "\x1b[38;5;25m\x1b[48;5;21m┼┼",
             '1' => "\x1b[39m\x1b[48;5;32m▯▯",
             ' ' => "\x1b[48;5;17m  ",
             _ => todo!(),
-        }
+        };
+        buff = c;
     }
-    for i in line.l5.chars() {
-        buff.l5 += match i {
+    buff = Default::default();
+
+    for c in line.l5.chars() {
+        if buff == c {
+            response.l5 += match c {
+                '0' => "┼┼",
+                '1' => "▯▯",
+                ' ' => "  ",
+                _ => todo!(),
+            };
+            continue;
+        }
+        response.l5 += match c {
             '0' => "\x1b[38;5;25m\x1b[48;5;21m┼┼",
             '1' => "\x1b[39m\x1b[48;5;32m▯▯",
             ' ' => "\x1b[48;5;17m  ",
             _ => todo!(),
-        }
+        };
+        buff = c;
     }
-    for i in line.l6.chars() {
-        buff.l6 += match i {
+    buff = Default::default();
+
+    for c in line.l6.chars() {
+        if buff == c {
+            response.l6 += match c {
+                '0' => "┼┼",
+                '1' => "▯▯",
+                ' ' => "  ",
+                _ => todo!(),
+            };
+            continue;
+        }
+        response.l6 += match c {
             '0' => "\x1b[38;5;25m\x1b[48;5;21m┼┼",
             '1' => "\x1b[39m\x1b[48;5;32m▯▯",
             ' ' => "\x1b[48;5;17m  ",
             _ => todo!(),
-        }
+        };
+        buff = c;
     }
-    for i in line.l7.chars() {
-        buff.l7 += match i {
+    buff = Default::default();
+
+    for c in line.l7.chars() {
+        if buff == c {
+            response.l7 += match c {
+                '0' => "┼┼",
+                '1' => "▯▯",
+                ' ' => "  ",
+                _ => todo!(),
+            };
+            continue;
+        }
+        response.l7 += match c {
             '0' => "\x1b[38;5;25m\x1b[48;5;21m┼┼",
             '1' => "\x1b[39m\x1b[48;5;32m▯▯",
             ' ' => "\x1b[48;5;17m  ",
             _ => todo!(),
-        }
+        };
+        buff = c;
     }
-    for i in line.l8.chars() {
-        buff.l8 += match i {
+    buff = Default::default();
+
+    for c in line.l8.chars() {
+        if buff == c {
+            response.l8 += match c {
+                '0' => "┼┼",
+                '1' => "▯▯",
+                ' ' => "  ",
+                _ => todo!(),
+            };
+            continue;
+        }
+        response.l8 += match c {
             '0' => "\x1b[38;5;25m\x1b[48;5;21m┼┼",
             '1' => "\x1b[39m\x1b[48;5;32m▯▯",
             ' ' => "\x1b[48;5;17m  ",
             _ => todo!(),
-        }
+        };
+        buff = c;
     }
-    return buff;
+    return response;
 }
 
 
